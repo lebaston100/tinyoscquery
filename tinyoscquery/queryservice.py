@@ -30,7 +30,7 @@ class OSCQueryService(object):
 
         self._zeroconf = Zeroconf()
         self._startOSCQueryService()
-        self._advertiseOSCService()
+        # self._advertiseOSCService()
         self.http_server = OSCQueryHTTPServer(self.root_node, self.host_info, ('', self.httpPort), OSCQueryHTTPHandler)
         self.http_thread = threading.Thread(target=self._startHTTPServer)
         self.http_thread.start()
