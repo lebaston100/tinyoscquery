@@ -18,7 +18,7 @@ class OSCQueryService(object):
         Desired UDP port number for the osc server
     oscIp : Optional(str) = 127.0.0.1
         Desired ip to advertise
-    advertiseOSCService : Optional(bool) = True
+    advertiseOSCServer : Optional(bool) = True
         If the osc server should be advertised on the network (outside oscjson spec)
     """
     
