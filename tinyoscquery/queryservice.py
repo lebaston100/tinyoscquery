@@ -16,9 +16,13 @@ class OSCQueryService(object):
         Desired TCP port number for the oscjson HTTP server
     oscPort : int
         Desired UDP port number for the osc server
+    oscIp : Optional(str) = 127.0.0.1
+        Desired ip to advertise
+    advertiseOSCService : Optional(bool) = True
+        If the osc server should be advertised on the network (outside oscjson spec)
     """
     
-    def __init__(self, serverName, httpPort, oscPort, oscIp="127.0.0.1") -> None:
+    def __init__(self, serverName, httpPort, oscPort, oscIp="127.0.0.1", advertiseOSCServer=True) -> None:
         self.serverName = serverName
         self.httpPort = httpPort
         self.oscPort = oscPort
@@ -30,7 +34,8 @@ class OSCQueryService(object):
 
         self._zeroconf = Zeroconf()
         self._startOSCQueryService()
-        # self._advertiseOSCService()
+        if advertiseOSCServer:
+            self._advertiseOSCService()
         self.http_server = OSCQueryHTTPServer(self.root_node, self.host_info, ('', self.httpPort), OSCQueryHTTPHandler)
         self.http_thread = threading.Thread(target=self._startHTTPServer)
         self.http_thread.start()
